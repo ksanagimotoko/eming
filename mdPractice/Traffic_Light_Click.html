@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic light</title>
+    <style>
+        .traffic_light{
+            display: flex;
+            background-color: #333;
+            flex-direction: row;
+            justify-content: center;
+            justify-content: space-around;
+            border-radius: 10px;
+            padding: 45px; 
+            width: 500px;
+        }
+        .light::after {
+        border-right: 4px solid rgba(255, 255, 255, 0.6);
+        border-radius: 100%;
+        content: ' ';
+        position: absolute;
+        top: 5px;
+        left: 0px;
+        width: 30px;
+        height: 30px;
+        }
+        .light {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative; /* 추가: 상대 위치 설정 */
+        }
+        .grey {
+            background-color: #ccc;
+        }
+        .red{
+            background-color: red;
+        }
+        .yellow {
+            background-color: yellow;
+        }
+        .green {
+            background-color: green;
+        }
+        .orange {
+            background-color: orange;
+        }
+        .light::after {
+            border-right:  solid rgba(255, 255, 255, 0.6);
+            border-radius: 100%;
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+        }
+        .light.off{
+            visibility: hidden;
+        }
+        .light.off::after {
+            content: ''; /* 추가: 회색 원 요소 생성 */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ccc;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="traffic_light">
+        <div class="light red"></div>
+        <div class="light yellow"></div>
+        <div class="light orange"></div>
+        <div class="light green " style="position: relative;">
+            <img 
+            src="./image/left.png" 
+            class="light green"
+            style="transform: rotate(180deg);"/>
+            <!--사진 방향 돌리기-->
+        </div>
+    </div>
+    <div class="btn">click</div>
+    <script>
+        
+        window.addEventListener('load', function() {
+            var lights = document.querySelectorAll('.light'); // 수정: 모든 신호등 가져오기
+            var currentIndex = 0; // 수정: 현재 신호등 인덱스
+            setInterval(function() {
+                lights[currentIndex].classList.add('off'); // 현재 신호등 꺼지게 하기
+                currentIndex = (currentIndex + 1) % lights.length; // 다음 신호등 인덱스 계산
+                lights[currentIndex].classList.remove('off'); // 다음 신호등 켜지게 하기
+            }, 1000); // 수정: 1초마다 변경
+        });
+        let k = document.querySelector(".btn");
+        k.addEventListener("click", () =>{
+            let g = document.querySelector(".light.green");
+            
+            // div .green 에다가 off 추가하기 
+            if (g.classList.contains("off")){
+                g.classList.remove("off");
+            } else {g.classList.add("off");
+            }
+    });
+    </script>
+</body>
+</html>
